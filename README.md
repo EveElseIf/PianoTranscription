@@ -20,3 +20,5 @@ Clone source code, download onnx file from Release/ONNX and put it on directory 
 ```
 dotnet build
 ```
+# Warning
+Please DO NOT build for other os platforms which you are not using, because msbuild sometimes will not copy the native libs in the right way!
