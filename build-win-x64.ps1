@@ -1,6 +1,6 @@
 $onnx_exists=([System.IO.File]::Exists("./PianoTranscription.Core/transcription.onnx"))
 Write-Output "onnx exists="$onnx_exists
-if ($onnx_exists) {
+if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
 }
 dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
@@ -13,3 +13,4 @@ Remove-Item $publish_path"onnxruntime_providers_shared.lib"
 Remove-Item $publish_path"onnxruntime.lib"
 Remove-Item $publish_path"PianoTranscription.Core.pdb"
 Remove-Item $publish_path"PianoTranscription.pdb"
+Get-ChildItem $publish_path
