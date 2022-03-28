@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="PianoTranscription.App.MainWindow"
+        Title="PianoTranscription.App"
+		Width="800" Height="450">
+	<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+		<StackPanel HorizontalAlignment="Center">
+			<Button Content="Select a file" x:Name="selectFileBtn" HorizontalAlignment="Center"/>
+			<TextBlock Text="No file selected" x:Name="fileNameTextBlock" HorizontalAlignment="Center"/>
+			<TextBlock Text="Status:Idle" x:Name="statusTextBlock" HorizontalAlignment="Center"/>
+			<ProgressBar x:Name="progressBar"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

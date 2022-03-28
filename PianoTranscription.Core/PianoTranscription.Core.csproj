@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <LangVersion>10.0</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+		<ContentWithTargetPath Include="ffmpeg-win-x64\ffmpeg.exe">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>ffmpeg.exe</TargetPath>
+		</ContentWithTargetPath>
+		<None Include="ffmpeg-win-x64\ffmpeg.exe" />
+    </ItemGroup>
+
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+		<ContentWithTargetPath Include="ffmpeg-osx-x64/ffmpeg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>ffmpeg</TargetPath>
+		</ContentWithTargetPath>
+		<None Include="ffmpeg-osx-x64/ffmpeg" />
+    </ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+		<ContentWithTargetPath Include="ffmpeg-linux-x64/ffmpeg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>ffmpeg</TargetPath>
+		</ContentWithTargetPath>
+		<None Include="ffmpeg-linux-x64/ffmpeg" />
+	</ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.1" />
+        <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.11.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="transcription.onnx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
