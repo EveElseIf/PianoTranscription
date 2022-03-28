@@ -1,0 +1,29 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-win-x64:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Download ONNX
+      run: Invork-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription/transcription.onnx"
+        
+    - name: Publish
+      run:  dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: win-x64
+        path: ./PianoTranscription/bin/Release/net6.0/win-x64/publish
+        
+    
