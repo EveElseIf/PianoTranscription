@@ -35,9 +35,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        
+
     - name: Publish
-      run:  ./build-linux-x64.sh
+      run:  chmod +x ./build-linux-x64.sh && ./build-linux-x64.sh
       shell: bash
       
     - name: Upload
@@ -46,3 +46,23 @@ jobs:
         name: pianotranscription-linux-x64
         path: ./PianoTranscription/bin/Release/net6.0/linux-x64/publish
         
+  build-osx-x64:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Publish
+      run:  chmod +x ./build-osx-x64.sh && ./build-osx-x64.sh
+      shell: bash
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-osx-x64
+        path: ./PianoTranscription/bin/Release/net6.0/osx-x64/publish
