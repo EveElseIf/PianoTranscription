@@ -14,12 +14,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-    - name: Download ONNX
-      run: Invork-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription/transcription.onnx"
-      shell:  pwsh
         
     - name: Publish
-      run:  dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
+      run:  ./.github/workflows/build-win-x64.ps1
+      shell: pwsh
       
     - name: Upload
       uses: actions/upload-artifact@v3.0.0
