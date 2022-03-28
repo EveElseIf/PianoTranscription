@@ -16,6 +16,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Download ONNX
       run: Invork-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription/transcription.onnx"
+      shell:  pwsh
         
     - name: Publish
       run:  dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
