@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    # - name: Setup .NET
-    #   uses: actions/setup-dotnet@v1
-    #   with:
-    #     dotnet-version: 6.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
         
     - name: Publish
       run:  ./build-win-x64.ps1
@@ -25,4 +25,3 @@ jobs:
         name: win-x64
         path: ./PianoTranscription/bin/Release/net6.0/win-x64/publish
         
-    
