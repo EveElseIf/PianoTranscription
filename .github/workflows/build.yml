@@ -22,6 +22,27 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: win-x64
-        path: ./PianoTranscription/bin/Release/net6.0/win-x64/publish/*
+        name: pianotranscription-win-x64
+        path: ./PianoTranscription/bin/Release/net6.0/win-x64/publish
+  
+  build-win-x64:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Publish
+      run:  ./build-linux-x64.sh
+      shell: bash
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-linux-x64
+        path: ./PianoTranscription/bin/Release/net6.0/linux-x64/publish
         
