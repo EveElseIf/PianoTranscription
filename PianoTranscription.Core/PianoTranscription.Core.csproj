@@ -37,7 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="transcription.onnx">
+      <None Include="transcription.onnx">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

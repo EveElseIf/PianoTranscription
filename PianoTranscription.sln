@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItem", "SolutionItem", "{C05C6B36-E3C6-4BF0-B5B6-B7292A62EBD2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoTranscription.Core", "PianoTranscription.Core\PianoTranscription.Core.csproj", "{2CD8D995-CC61-423E-B625-D4B35019A9D6}"
