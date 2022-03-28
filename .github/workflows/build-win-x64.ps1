@@ -1,5 +1,7 @@
-if (-not ([System.IO.File]::Exists("PianoTranscription.Core/transcription.onnx"))) {
-    Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription/transcription.onnx"
+$onnx_exists=([System.IO.File]::Exists("PianoTranscription.Core/transcription.onnx"))
+Write-Output "onnx exists="$onnx_exists
+if (-not $onnx_exists) {
+    Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "PianoTranscription.Core"
 }
 dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
 $publish_path = "PianoTranscription/bin/Release/net6.0/win-x64/publish/"
