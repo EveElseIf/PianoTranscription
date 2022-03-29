@@ -36,8 +36,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Restore
-      run:  dotnet restore
+    - name: Restore Powershell
+      run:  dotnet tool restore
 
     - name: Publish
       run:  dotnet pwsh ./build-linux-x64.ps1 dist
@@ -59,8 +59,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    - name: Restore
-      run:  dotnet restore
+    - name: Restore Powershell
+      run:  dotnet tool restore
 
     - name: Publish
       run:  dotnet pwsh ./build-osx-x64.ps1 dist
@@ -82,8 +82,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    - name: Restore
-      run:  dotnet restore
+    - name: Restore Powershell
+      run:  dotnet tool restore
 
     - name: Publish
       run:  dotnet pwsh ./build-osx-arm64.ps1 dist
