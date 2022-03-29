@@ -48,7 +48,7 @@ jobs:
         name: pianotranscription-linux-x64
         path: ./build
         
-  build-osx-x64:
+  build-osx:
 
     runs-on: macos-latest
 
@@ -70,20 +70,6 @@ jobs:
       with:
         name: pianotranscription-osx-x64
         path: ./build
-  
-  build-osx-arm64:
-
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-        
-    - name: Restore Powershell
-      run:  dotnet tool restore
 
     - name: Publish
       run:  dotnet pwsh ./build-osx-arm64.ps1 dist
