@@ -20,5 +20,12 @@ Clone source code, download onnx file from Release/ONNX and put it on directory 
 ```
 dotnet build
 ```
+---
+If you are runing on Mac OS, at the first time, please run
+```
+dotnet tool restore
+dotnet pwsh ./build-osx-arm64.ps1
+```
+You can change to ./build-osx-x64.ps1 depending on your cpu's architecture.
 # Warning
 Please DO NOT build for other os platforms which you are not using, because msbuild sometimes will not copy the native libs in the right way!
