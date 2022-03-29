@@ -3,6 +3,7 @@ Write-Output "onnx exists="$onnx_exists
 if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
 }
+dotnet build
 dotnet publish PianoTranscription -c Release -r osx-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
 $publish_path = "PianoTranscription/bin/Release/net6.0/osx-x64/publish/"
 Copy-Item "PianoTranscription/bin/Debug/net6.0/runtimes/osx*x64/native/libonnxruntime.dylib" $publish_path
