@@ -16,14 +16,14 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Publish
-      run:  ./build-win-x64.ps1
+      run:  ./build-win-x64.ps1 dist
       shell: pwsh
       
     - name: Upload
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-win-x64
-        path: ./PianoTranscription/bin/Release/net6.0/win-x64/publish
+        path: ./build/pianotranscription-win-x64
   
   build-linux-x64:
 
@@ -36,15 +36,17 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - name: Restore
+      run:  dotnet restore
+
     - name: Publish
-      run:  chmod +x ./build-linux-x64.sh && ./build-linux-x64.sh
-      shell: bash
+      run:  dotnet pwsh ./build-linux-x64.ps1 dist
       
     - name: Upload
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-linux-x64
-        path: ./PianoTranscription/bin/Release/net6.0/linux-x64/publish
+        path: ./build/pianotranscription-linux-x64
         
   build-osx-x64:
 
@@ -57,12 +59,37 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
+    - name: Restore
+      run:  dotnet restore
+
     - name: Publish
-      run:  chmod +x ./build-osx-x64.sh && ./build-osx-x64.sh
-      shell: bash
+      run:  dotnet pwsh ./build-osx-x64.ps1 dist
       
     - name: Upload
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-osx-x64
-        path: ./PianoTranscription/bin/Release/net6.0/osx-x64/publish
+        path: ./build/pianotranscription-osx-x64
+  
+  build-osx-arm64:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore
+      run:  dotnet restore
+
+    - name: Publish
+      run:  dotnet pwsh ./build-osx-arm64.ps1 dist
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-osx-arm64
+        path: ./build/pianotranscription-osx-arm64

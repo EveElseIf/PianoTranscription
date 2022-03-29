@@ -11,6 +11,7 @@
 *.sln.docstates
 transcription.onnx
 launchSettings.json
+build/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
