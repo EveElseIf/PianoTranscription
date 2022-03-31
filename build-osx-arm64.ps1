@@ -22,5 +22,6 @@ if($args[0] -eq "dist") {
     }
     New-Item -ItemType Directory $dist_path
     Copy-Item -Path "$publish_path*" $dist_path
+    Compress-Archive $dist_path "$out_dir_name.zip" -Force
     Write-Output "Build dist Finished"
 }

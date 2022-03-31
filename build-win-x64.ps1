@@ -16,11 +16,12 @@ if ($args[0] -eq "dist") {
     Remove-Item $publish_path"PianoTranscription.Core.pdb"
     Remove-Item $publish_path"PianoTranscription.pdb"
     $out_dir_name = "pianotranscription-win-x64"
-    $dist_path = "build/$out_dir_name/$out_dir_name"
+    $dist_path = "build/$out_dir_name"
     if ([System.IO.Directory]::Exists($dist_path)) {
         Remove-Item $dist_path -Force -Recurse
     }
     New-Item -ItemType Directory $dist_path
     Copy-Item -Path "$publish_path*" $dist_path
+    Compress-Archive $dist_path "$out_dir_name.zip" -Force
     Write-Output "Build dist Finished"
 }

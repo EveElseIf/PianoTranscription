@@ -35,22 +35,22 @@ jobs:
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-win-x64
-        path: ./build/pianotranscription-win-x64
+        path: ./pianotranscription-win-x64.zip
 
     - name: Upload linux-x64
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-linux-x64
-        path: ./build/pianotranscription-linux-x64
+        path: ./pianotranscription-linux-x64.zip
 
     - name: Upload osx-x64
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-osx-x64
-        path: ./build/pianotranscription-osx-x64
+        path: ./pianotranscription-osx-x64.zip
 
     - name: Upload osx-arm64
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-osx-arm64
-        path: ./build/pianotranscription-osx-arm64
+        path: ./pianotranscription-osx-arm64.zip
