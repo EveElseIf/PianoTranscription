@@ -26,4 +26,3 @@ After this, you can just run
 ```
 dotnet build
 ```
----
