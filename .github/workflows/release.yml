@@ -1,0 +1,77 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  
+  build-all:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore Powershell
+      run:  dotnet tool restore
+
+    - name: Publish win-x64
+      run:  dotnet pwsh ./build-win-x64.ps1 dist
+
+    - name: Publish linux-x64
+      run:  dotnet pwsh ./build-linux-x64.ps1 dist
+
+    - name: Publish osx-x64
+      run:  dotnet pwsh ./build-osx-x64.ps1 dist
+
+    - name: Publish osx-arm64
+      run:  dotnet pwsh ./build-osx-arm64.ps1 dist
+      
+    - name: Upload win-x64
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-win-x64
+        path: ./build/pianotranscription-win-x64
+
+    - name: Upload linux-x64
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-linux-x64
+        path: ./build/pianotranscription-linux-x64
+
+    - name: Upload osx-x64
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-osx-x64
+        path: ./build/pianotranscription-osx-x64
+
+    - name: Upload osx-arm64
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-osx-arm64
+        path: ./build/pianotranscription-osx-arm64
+
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        path: .
+    
+    - name: Display path struture
+      run: ls -R
+    
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        files:  |
+          pianotranscription-win-x64.zip
+          pianotranscription-linux-x64.zip
+          pianotranscription-osx-x64.zip
+          pianotranscription-osx-arm64.zip
