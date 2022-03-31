@@ -55,13 +55,11 @@ jobs:
         name: pianotranscription-osx-arm64
         path: ./pianotranscription-osx-arm64.zip
     
-    - name: Display path struture
-      run: ls -R
-    
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "Latest"
+        prerelease: false
         files: |
           pianotranscription-win-x64.zip
           pianotranscription-linux-x64.zip
