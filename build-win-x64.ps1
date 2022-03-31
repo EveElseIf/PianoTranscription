@@ -1,11 +1,12 @@
-$onnx_exists=([System.IO.File]::Exists("./PianoTranscription.Core/transcription.onnx"))
-Write-Output "onnx exists="$onnx_exists
+$onnx_exists = ([System.IO.File]::Exists("./PianoTranscription.Core/transcription.onnx"))
+Write-Output "onnx exists=$onnx_exists"
 if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
 }
 dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
 $publish_path = "PianoTranscription/bin/Release/net6.0/win-x64/publish/"
-if($args[0] -eq "dist") {
+Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" $publish_path
+if ($args[0] -eq "dist") {
     Write-Output "Start build dist"
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native32.dll"
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dll"
@@ -14,9 +15,12 @@ if($args[0] -eq "dist") {
     Remove-Item $publish_path"onnxruntime.lib"
     Remove-Item $publish_path"PianoTranscription.Core.pdb"
     Remove-Item $publish_path"PianoTranscription.pdb"
-    if(([System.IO.Directory]::Exists("./build"))){
-        Remove-Item "./build" -Force -Recurse
+    $out_dir_name = "pianotranscription-win-x64"
+    $dist_path = "build/$out_dir_name/$out_dir_name"
+    if ([System.IO.Directory]::Exists($dist_path)) {
+        Remove-Item $dist_path -Force -Recurse
     }
-    New-Item -ItemType Directory "build/pianotranscription-win-x64"
-    Copy-Item -Path $publish_path"*" "build/pianotranscription-win-x64"
+    New-Item -ItemType Directory $dist_path
+    Copy-Item -Path "$publish_path*" $dist_path
+    Write-Output "Build dist Finished"
 }

@@ -4,28 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-win-x64:
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-        
-    - name: Publish
-      run:  ./build-win-x64.ps1 dist
-      shell: pwsh
-      
-    - name: Upload
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: pianotranscription-win-x64
-        path: ./build
   
-  build-linux-x64:
+  build-all:
 
     runs-on: ubuntu-latest
 
@@ -39,43 +19,38 @@ jobs:
     - name: Restore Powershell
       run:  dotnet tool restore
 
-    - name: Publish
+    - name: Publish win-x64
+      run:  dotnet pwsh ./build-win-x64.ps1 dist
+
+    - name: Publish linux-x64
       run:  dotnet pwsh ./build-linux-x64.ps1 dist
+
+    - name: Publish osx-x64
+      run:  dotnet pwsh ./build-osx-x64.ps1 dist
+
+    - name: Publish osx-arm64
+      run:  dotnet pwsh ./build-osx-arm64.ps1 dist
       
-    - name: Upload
+    - name: Upload win-x64
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: pianotranscription-win-x64
+        path: ./build/pianotranscription-win-x64
+
+    - name: Upload linux-x64
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-linux-x64
-        path: ./build
-        
-  build-osx:
+        path: ./build/pianotranscription-linux-x64
 
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-        
-    - name: Restore Powershell
-      run:  dotnet tool restore
-
-    - name: Publish
-      run:  dotnet pwsh ./build-osx-x64.ps1 dist
-      
-    - name: Upload
+    - name: Upload osx-x64
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-osx-x64
-        path: ./build
+        path: ./build/pianotranscription-osx-x64
 
-    - name: Publish
-      run:  dotnet pwsh ./build-osx-arm64.ps1 dist
-      
-    - name: Upload
+    - name: Upload osx-arm64
       uses: actions/upload-artifact@v3.0.0
       with:
         name: pianotranscription-osx-arm64
-        path: ./build
+        path: ./build/pianotranscription-osx-arm64
