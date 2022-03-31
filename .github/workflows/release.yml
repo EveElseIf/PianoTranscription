@@ -5,7 +5,7 @@ on:
 
 jobs:
   
-  build-all:
+  build-all-and-release:
 
     runs-on: ubuntu-latest
 
@@ -55,11 +55,6 @@ jobs:
         name: pianotranscription-osx-arm64
         path: ./build/pianotranscription-osx-arm64
 
-  release:
-
-    runs-on: ubuntu-latest
-
-    steps:
     - uses: actions/download-artifact@v3
       with:
         path: .
@@ -70,7 +65,8 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        files:  |
+        automatic_release_tag: "latest"
+        files: |
           pianotranscription-win-x64.zip
           pianotranscription-linux-x64.zip
           pianotranscription-osx-x64.zip
