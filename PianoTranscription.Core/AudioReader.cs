@@ -60,6 +60,7 @@ namespace PianoTranscription.Core
             @is.Write(bytes, 0, bytes.Length);
             @is.Close();
             task.Wait();
+            p.WaitForExit();
             if (p.ExitCode != 0)
                 throw new FormatException();
             var output = ms.ToArray();
