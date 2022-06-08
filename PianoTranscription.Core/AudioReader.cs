@@ -15,13 +15,15 @@ namespace PianoTranscription.Core
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    if (File.Exists(Path.Combine(rootDir, "ffmpeg.exe")))
-                        _ffmpegPath = new FileInfo("ffmpeg.exe").FullName;
+                    var path = Path.Combine(rootDir, "ffmpeg.exe");
+                    if (File.Exists(path))
+                        _ffmpegPath = path;
                 }
                 else
                 {
-                    if (File.Exists(Path.Combine(rootDir, "ffmpeg")))
-                        _ffmpegPath = new FileInfo("ffmpeg").FullName;
+                    var path = Path.Combine(rootDir, "ffmpeg");
+                    if (File.Exists(path))
+                        _ffmpegPath = path;
                 }
             }
             else

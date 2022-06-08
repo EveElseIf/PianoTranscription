@@ -118,8 +118,7 @@ static void HandleAudios(params (string, string)[] in_out)
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-            Console.WriteLine(ex.StackTrace);
+            Console.WriteLine(ex);
             return;
         }
         w.Stop();

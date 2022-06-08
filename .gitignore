@@ -13,6 +13,7 @@ transcription.onnx
 launchSettings.json
 build/
 nupkg/
+.vscode
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
