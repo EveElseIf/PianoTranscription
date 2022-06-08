@@ -37,7 +37,7 @@ void Handler(FileInfo inFile, DirectoryInfo inDir, string output)
         {
             outDir = new DirectoryInfo(output);
         }
-        catch (ArgumentException)
+        catch
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Invalid argument: {output}");
@@ -64,6 +64,12 @@ void Handler(FileInfo inFile, DirectoryInfo inDir, string output)
             return;
         }
         var outFile = new FileInfo(output);
+        if (!outFile.IsAudioFile())
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"File extension \"{outFile.Extension}\" is not supported");
+            return;
+        }
         HandleAudios((inFile.FullName, outFile.FullName));
     }
     else
