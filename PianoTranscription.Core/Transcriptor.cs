@@ -151,10 +151,10 @@ public class Transcriptor
     {
         int p = 0;
         var batch = new List<float[]>();
-        while (p + segmentSamples <= data.Length)
+        while (p + i <= data.Length)
         {
-            batch.Add(data[p..(p + segmentSamples)]);
-            p += segmentSamples / 2;
+            batch.Add(data[p..(p + i)]);
+            p += i / 2;
         }
 
         return batch;
@@ -403,7 +403,7 @@ internal class RegressionPostProcessor
     private List<float[]> OutputDictToDetectedPedals(Dictionary<string, float[,]> dict)
     {
         var framesNum = dict["pedal_frame_output"].GetLength(0);
-        var estTuples = pedalDetectionWithOnsetOffsetRegress(
+        var estTuples = PedalDetectionWithOnsetOffsetRegress(
             new ExtractedArray(dict["pedal_frame_output"], 0),
             new ExtractedArray(dict["pedal_offset_output"], 0),
             new ExtractedArray(dict["pedal_offset_shift_output"], 0),
@@ -439,7 +439,7 @@ internal class RegressionPostProcessor
         return output;
     }
 
-    private List<float[]> pedalDetectionWithOnsetOffsetRegress(IExtractedArray frameOutputs,
+    private List<float[]> PedalDetectionWithOnsetOffsetRegress(IExtractedArray frameOutputs,
         IExtractedArray offsetOutputs, IExtractedArray offsetShiftOutputs, double frameThreshold)
     {
         var bgn = 0;

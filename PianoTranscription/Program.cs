@@ -4,6 +4,11 @@ using PianoTranscription.Core.Midi;
 using System.CommandLine;
 using System.Diagnostics;
 
+// Console.WriteLine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
+var langTag = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+var lang = langTag == "zh" ? Langs.Zh : Langs.En;
+
+
 var op1 = new Option<FileInfo>(
     new[] { "-i", "--input" }, "Specify the input file").ExistingOnly();
 var op2 = new Option<DirectoryInfo>(
@@ -79,7 +84,8 @@ static void HandleAudios(params (string, string)[] in_out)
     Transcriptor t;
     try
     {
-        t = new Transcriptor(File.ReadAllBytes("transcription.onnx"));
+        string _localPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        t = new Transcriptor(File.ReadAllBytes(Path.Combine(_localPath, "transcription.onnx")));
     }
     catch (Exception ex)
     {
@@ -124,6 +130,12 @@ static void HandleAudios(params (string, string)[] in_out)
     }
     wg.Stop();
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine($"OK,total time usage: {wg.Elapsed:g}");
+    Console.WriteLine($"OK, total time usage: {wg.Elapsed:g}");
     Console.ResetColor();
+}
+
+enum Langs
+{
+    Zh,
+    En
 }

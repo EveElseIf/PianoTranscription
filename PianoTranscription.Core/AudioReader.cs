@@ -38,7 +38,8 @@ namespace PianoTranscription.Core
                 {
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
-                    RedirectStandardInput = true
+                    RedirectStandardInput = true,
+                    CreateNoWindow = true
                 }
             };
             p.Start();
