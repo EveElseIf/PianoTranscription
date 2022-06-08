@@ -18,7 +18,9 @@ Transcript files in a directory.
 ./PianoTranscription -d inputdir outputdir
 ```
 # How To Build
-Clone source code, download onnx file from Release/ONNX and put it into directory 'PianoTranscription.Core'. Or you can just run the commands below to download the ONNX file automatically. Please notice that without the ONNX file, you cannot build the solution.
+Clone source code, run the build script below for the first time. The script will help you download the ONNX file and copy the FFmpeg to build directory.
+
+Please notice that without the ONNX file, you cannot build the solution.
 
 For first time, please run
 ```
@@ -28,6 +30,11 @@ dotnet pwsh ./build-xxx-xxx.ps1
 After this, you can just run
 ```
 dotnet build
+```
+Run an application, simply use one of two
+```
+dotnet run --project PianoTranscription
+dotnet run --project PianoTranscription.App
 ```
 If you want to build a dist, please run
 ```

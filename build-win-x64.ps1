@@ -5,6 +5,7 @@ if (-not($onnx_exists)) {
 }
 dotnet build
 Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" "PianoTranscription/bin/Debug/net6.0"
+Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" "PianoTranscription.App/bin/Debug/net6.0"
 if ($args[0] -eq "dist") {
     Write-Output "Start build dist"
     dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true

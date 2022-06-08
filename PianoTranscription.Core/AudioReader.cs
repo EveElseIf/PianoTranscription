@@ -9,18 +9,18 @@ namespace PianoTranscription.Core
     public unsafe class AudioReader
     {
         private readonly string _ffmpegPath = "ffmpeg";
-        public AudioReader(string? ffmpegPath = null)
+        public AudioReader(string? rootDir = "", string? ffmpegPath = null)
         {
             if (ffmpegPath is null)
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    if (File.Exists("ffmpeg.exe"))
+                    if (File.Exists(Path.Combine(rootDir, "ffmpeg.exe")))
                         _ffmpegPath = new FileInfo("ffmpeg.exe").FullName;
                 }
                 else
                 {
-                    if (File.Exists("ffmpeg"))
+                    if (File.Exists(Path.Combine(rootDir, "ffmpeg")))
                         _ffmpegPath = new FileInfo("ffmpeg").FullName;
                 }
             }

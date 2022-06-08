@@ -80,7 +80,7 @@ static void HandleAudios(params (string, string)[] in_out)
 {
     var wg = new Stopwatch();
     wg.Start();
-    var reader = new AudioReader();
+    var reader = new AudioReader(AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
     Transcriptor t;
     try
     {

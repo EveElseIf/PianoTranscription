@@ -3,7 +3,9 @@ Write-Output "onnx exists=$onnx_exists"
 if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
 }
-
+dotnet build
+Copy-Item "PianoTranscription.Core/ffmpeg-linux-x64/ffmpeg" "PianoTranscription/bin/Debug/net6.0"
+Copy-Item "PianoTranscription.Core/ffmpeg-linux-x64/ffmpeg" "PianoTranscription.App/bin/Debug/net6.0"
 if($args[0] -eq "dist") {
     Write-Output "Start build dist"
     dotnet publish PianoTranscription -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
