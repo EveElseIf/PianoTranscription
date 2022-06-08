@@ -60,7 +60,7 @@ namespace PianoTranscription.App
                 Extensions = new List<string>() { "mp3", "wav", "flac", "ape", "ogg" }
             });
             var file = await dialog.ShowAsync(this);
-            if (file.Length == 0) return;
+            if (file is null || file.Length == 0) return;
             selectedFile = file[0];
             fileNameTextBlock.Text = string.Format("Selected file: {0}", selectedFile);
             progressBar.Value = 0;
