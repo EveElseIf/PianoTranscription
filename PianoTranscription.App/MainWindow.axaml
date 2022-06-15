@@ -4,8 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="PianoTranscription.App.MainWindow"
-        Title="PianoTranscription GUI"
-		Width="800" Height="450" FontFamily="Microsoft YaHei,Simsun,苹方-简,宋体-简">
+		Width="800" Height="450" FontFamily="Microsoft YaHei,苹方-简,WenQuanYi Zen Hei">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
@@ -13,12 +12,18 @@
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
 			<StackPanel HorizontalAlignment="Center">
+				<StackPanel.Styles>
+					<Style Selector="Button,TextBlock,ProgressBar">
+						<Setter Property="Margin" Value="10"/>
+					</Style>
+				</StackPanel.Styles>
 				<Button Content="Select a file to transcript" x:Name="selectFileBtn" HorizontalAlignment="Center"/>
 				<Button Content="Start transcript and save" x:Name="startBtn" HorizontalAlignment="Center"/>
 				<TextBlock Text="No file selected" x:Name="fileNameTextBlock" HorizontalAlignment="Center"/>
 				<TextBlock Text="Status: Idle" x:Name="statusTextBlock" HorizontalAlignment="Center"/>
 				<ProgressBar x:Name="progressBar"/>
 				<TextBlock Text="0/0" x:Name="progressTextBlcok" HorizontalAlignment="Center" IsVisible="False"/>
+				<Button x:Name="stopBtn" Content="Stop" HorizontalAlignment="Center"/>
 			</StackPanel>
 		</StackPanel>
 		<Grid Grid.Column="1">
@@ -26,8 +31,8 @@
 				<RowDefinition Height="30"/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
-			<TextBlock Grid.Row="0" Text="Output" FontSize="24" Margin="10"/>
-			<TextBox Grid.Row="1" x:Name="OutputTextBox" IsReadOnly="True" BorderThickness="1" Margin="10"
+			<TextBlock Grid.Row="0" Text="Log" x:Name="logTitleTextBlock" FontSize="24" Margin="10"/>
+			<TextBox Grid.Row="1" x:Name="logTextBox" IsReadOnly="True" BorderThickness="1" Margin="10"
 					 ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
 		</Grid>
 	</Grid>

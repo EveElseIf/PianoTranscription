@@ -51,8 +51,7 @@ public class Transcriptor
         var segments = Enframe(normalizedData, segmentSamples);
         var outputDict = Forward(segments, progressReport, token);
         var newOutputDict = new Dictionary<string, float[,]>();
-        if (token?.IsCancellationRequested ?? false)
-            throw new OperationCanceledException();
+        token?.ThrowIfCancellationRequested();
         foreach (var item in outputDict)
         {
             newOutputDict.Add(item.Key, Deframe(item.Value));

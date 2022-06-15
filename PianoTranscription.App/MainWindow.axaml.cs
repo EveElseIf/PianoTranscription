@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PianoTranscription.App
@@ -14,16 +15,36 @@ namespace PianoTranscription.App
     {
         private Transcriptor transcriptor = null;
         private string selectedFile;
+        private readonly string version;
+        private readonly Strings strings;
+        private bool isRunning = false;
+        private CancellationTokenSource cancellationTokenSource;
         public MainWindow()
         {
             InitializeComponent();
+            strings = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "zh" ? new ZhStrings() : new EnStrings();
+            version = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
+
+            Title = strings.Title;
+            selectFileBtn.Content = strings.SelectBtn;
+            startBtn.Content = strings.StartBtn;
+            statusTextBlock.Text = strings.Idle;
+            stopBtn.Content = strings.Stop;
+            fileNameTextBlock.Text = strings.NoFileSelected;
+            logTitleTextBlock.Text = strings.Log;
+
             selectFileBtn.Click += SelectFileBtn_Click;
             startBtn.Click += StartBtn_Click;
-            Log("Welcome, for more information, please visit https://github.com/EveElseIf/PianoTranscription");
+            stopBtn.Click += StopBtn_Click;
+            stopBtn.IsVisible = false;
+
+            Log(strings.WelcomeInfoFormat.Format(version));
         }
+
 
         private async void StartBtn_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            if (isRunning) return;
             if (string.IsNullOrEmpty(selectedFile)) return;
 
             var dialog = new SaveFileDialog();
@@ -35,11 +56,18 @@ namespace PianoTranscription.App
             var file = await dialog.ShowAsync(this);
             if (string.IsNullOrEmpty(file)) return;
 
-            statusTextBlock.Text = "Status: Running";
+            statusTextBlock.Text = strings.Running;
             progressTextBlcok.IsVisible = true;
+            stopBtn.IsVisible = true;
+            isRunning = true;
             try
             {
-                await ProcessFile(selectedFile, file);
+                cancellationTokenSource = new CancellationTokenSource();
+                await ProcessFile(selectedFile, file, cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                Log(strings.Canceled);
             }
             catch (Exception ex)
             {
@@ -47,31 +75,39 @@ namespace PianoTranscription.App
             }
             finally
             {
-                statusTextBlock.Text = "Status: Idle";
+                statusTextBlock.Text = strings.Idle;
+                cancellationTokenSource.Dispose();
+                stopBtn.IsVisible = false;
+                isRunning = false;
             }
         }
 
         private async void SelectFileBtn_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            if (isRunning) return;
             var dialog = new OpenFileDialog();
             dialog.Filters.Add(new FileDialogFilter()
             {
-                Name = "audio",
+                Name = strings.AudioFile,
                 Extensions = new List<string>() { "mp3", "wav", "flac", "ape", "ogg" }
             });
             var file = await dialog.ShowAsync(this);
             if (file is null || file.Length == 0) return;
             selectedFile = file[0];
-            fileNameTextBlock.Text = string.Format("Selected file: {0}", selectedFile);
+            fileNameTextBlock.Text = strings.SelectedFileFormat.Format(selectedFile);
             progressBar.Value = 0;
             progressBar.Maximum = 1;
             progressTextBlcok.IsVisible = false;
         }
-        private Task ProcessFile(string path,string outpath)
+        private void StopBtn_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
+        }
+        private Task ProcessFile(string path, string outpath, CancellationToken token)
         {
             return Task.Run(async () =>
             {
-                Log(string.Format("Start, file name: {0}.", path));
+                Log(strings.StartFormat.Format(path));
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
                 var reader = new AudioReader();
@@ -79,9 +115,9 @@ namespace PianoTranscription.App
                 var data = reader.ParseAndNormalizePcmData(pcm);
                 if (transcriptor is null)
                 {
-                    string localpath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                    string localpath = Path.GetDirectoryName(Environment.ProcessPath);
                     transcriptor = new Transcriptor(File.ReadAllBytes(Path.Combine(localpath, "transcription.onnx")));
-                    Log("Onnxruntime initialized.");
+                    Log(strings.ORTInited);
                 }
                 var dict = transcriptor.Transcript(data, (a, b) =>
                 {
@@ -91,18 +127,18 @@ namespace PianoTranscription.App
                         progressBar.Maximum = b;
                         progressTextBlcok.Text = $"{a}/{b}";
                     });
-                });
+                }, token);
                 var bytes = MidiWriter.WriteEventsToMidi(dict);
-                Log(string.Format("Saving file to: {0}", outpath));
+                Log(strings.SavingFileFormat.Format(outpath));
                 await File.WriteAllBytesAsync(outpath, bytes);
-                Log(string.Format("Transcription completed, total time usage: {0:g}", stopwatch.Elapsed));
+                Log(strings.CompletedFormat.Format(stopwatch.Elapsed));
             });
         }
         private void Log(string content)
         {
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                OutputTextBox.Text += content + "\n\n";
+                logTextBox.Text += content + "\n\n";
             });
         }
     }
