@@ -28,7 +28,7 @@
 		</StackPanel>
 		<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="30"/>
+				<RowDefinition Height="40"/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 			<TextBlock Grid.Row="0" Text="Log" x:Name="logTitleTextBlock" FontSize="24" Margin="10"/>
