@@ -1,0 +1,5 @@
+﻿for unix like x86:
+--arch=x86_64 --enable-small --disable-all --disable-v4l2-m2m --disable-iconv --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-ffmpeg --enable-encoder=pcm_s16le --enable-muxer=pcm_s16le --enable-decoder='mp3,flac,ape,vorbis,pcm*' --enable-demuxer='mp3,flac,wav,ogg,ape' --enable-filter=aresample --enable-protocol='file,pipe'
+
+for apple arm64:
+--arch=arm64 --enable-small --disable-all --disable-v4l2-m2m --disable-iconv --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-ffmpeg --enable-encoder=pcm_s16le --enable-muxer=pcm_s16le --enable-decoder='mp3,flac,ape,vorbis,pcm*' --enable-demuxer='mp3,flac,wav,ogg,ape' --enable-filter=aresample --enable-protocol='file,pipe' --cc="clang -arch arm64" --disable-asm --enable-cross-compile
