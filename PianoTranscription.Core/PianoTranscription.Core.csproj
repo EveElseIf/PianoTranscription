@@ -8,10 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.0" />
+        <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.1" />
         <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.11.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove=".DS_Store" />
+    </ItemGroup>
     <ItemGroup>
       <None Include="transcription.onnx">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -115,7 +115,7 @@ namespace PianoTranscription.App
                 var data = reader.ParseAndNormalizePcmData(pcm);
                 if (transcriptor is null)
                 {
-                    string localpath = Path.GetDirectoryName(Environment.ProcessPath);
+                    string localpath = Path.GetDirectoryName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
                     transcriptor = new Transcriptor(File.ReadAllBytes(Path.Combine(localpath, "transcription.onnx")));
                     Log(strings.ORTInited);
                 }
