@@ -1,5 +1,8 @@
 ﻿for unix like x86:
---arch=x86_64 --enable-small --disable-all --disable-v4l2-m2m --disable-iconv --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-ffmpeg --enable-encoder=pcm_s16le --enable-muxer=pcm_s16le --enable-decoder='mp3,flac,ape,vorbis,pcm*' --enable-demuxer='mp3,flac,wav,ogg,ape' --enable-filter=aresample --enable-protocol='file,pipe'
+--arch=x86_64 --enable-small --disable-all --disable-v4l2-m2m --disable-iconv --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-ffmpeg --enable-encoder=pcm_s16le --enable-muxer=pcm_s16le --enable-decoder='mp3,flac,ape,vorbis,pcm*' --enable-demuxer='mp3,flac,wav,ogg,ape' --enable-filter=aresample --enable-protocol='file,pipe' --cc=clang
 
 for apple arm64:
 --arch=arm64 --enable-small --disable-all --disable-v4l2-m2m --disable-iconv --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-ffmpeg --enable-encoder=pcm_s16le --enable-muxer=pcm_s16le --enable-decoder='mp3,flac,ape,vorbis,pcm*' --enable-demuxer='mp3,flac,wav,ogg,ape' --enable-filter=aresample --enable-protocol='file,pipe' --cc="clang -arch arm64" --disable-asm --enable-cross-compile
+
+for windows mingw:
+--arch=x86_64 --enable-small --disable-all --disable-v4l2-m2m --disable-iconv --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-ffmpeg --enable-encoder=pcm_s16le --enable-muxer=pcm_s16le --enable-decoder='mp3,flac,ape,vorbis,pcm*' --enable-demuxer='mp3,flac,wav,ogg,ape' --enable-filter=aresample --enable-protocol='file,pipe' --target-os=mingw64 --arch=x86_64 --cross-prefix=x86_64-w64-mingw32- --enable-cross-compile

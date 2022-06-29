@@ -37,14 +37,18 @@ if($args[0] -eq "dist") {
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dylib"
     Remove-Item $publish_path"PianoTranscription.Core.pdb"
     Remove-Item $publish_path"PianoTranscription.App.pdb"
-    $out_dir_name = "pianotranscription-osx-x64-gui"
-    $dist_path = "build/$out_dir_name"
-    if ([System.IO.Directory]::Exists($dist_path)) {
-        Remove-Item $dist_path -Force -Recurse
+    $bundle_name = "PianoTranscription.app"
+    $bundle_root = "build/$bundle_name/"
+    if ([System.IO.Directory]::Exists($bundle_root)) {
+        Remove-Item $bundle_root -Force -Recurse
     }
-    New-Item -ItemType Directory $dist_path
-    Copy-Item -Path "$publish_path*" $dist_path
-    tar -zcvf "$out_dir_name.tar.gz" -C build $out_dir_name
+    New-Item -ItemType Directory $bundle_root
+    New-Item -ItemType Directory $bundle_root"Contents"
+    New-Item -ItemType Directory $bundle_root"Contents/MacOS"
+    Copy-Item -Path "$publish_path*" $bundle_root"Contents/MacOS"
+    Copy-Item -Path "resources/Info.plist" $bundle_root"/Contents"
+    New-Item -ItemType Directory $bundle_root"Contents/Resources"
+    tar -zcvf "pianotranscription-osx-x64-gui.tar.gz" -C build $bundle_name
 
     Write-Output "Build dist Finished"
 }
