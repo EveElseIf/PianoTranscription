@@ -9,7 +9,7 @@
 	  <PackAsTool>true</PackAsTool>
 	  <ToolCommandName>PianoTranscription</ToolCommandName>
 	  <PackageOutputPath>./nupkg</PackageOutputPath>
-	  <AssemblyVersion>1.0.0.1</AssemblyVersion>
+	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
