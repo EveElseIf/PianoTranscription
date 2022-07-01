@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItem", "SolutionIte
 		build-osx-x64.ps1 = build-osx-x64.ps1
 		build-win-x64.ps1 = build-win-x64.ps1
 		FFmpegConfiguration.txt = FFmpegConfiguration.txt
+		privacy.html = privacy.html
 		README.md = README.md
 	EndProjectSection
 EndProject

@@ -7,13 +7,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="8e2cb8e0-11dc-4e72-a9bd-4008d0ba2d05"
-    Publisher="CN=EveEl"
-    Version="1.0.0.0" />
+    Name="27274EveElseIf.3224962B1EB29"
+    Publisher="CN=E8A87D1A-6712-47FF-877A-086B526DECC4"
+    Version="1.0.1.0" />
 
   <Properties>
-    <DisplayName>PianoTranscription.App.Package</DisplayName>
-    <PublisherDisplayName>EveEl</PublisherDisplayName>
+    <DisplayName>AI 扒谱小助手</DisplayName>
+    <PublisherDisplayName>EveElseIf</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -31,19 +31,17 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="PianoTranscription.App.Package"
-        Description="PianoTranscription.App.Package"
+        DisplayName="AI 扒谱小助手"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
-        Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        Square44x44Logo="Images\Square44x44Logo.png" Description="钢琴曲AI扒谱实用工具">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png"  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png"/>
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>
