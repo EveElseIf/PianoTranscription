@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="PianoTranscription.App.MainWindow"
+        x:Class="PianoTranscription.App.MainWindow" Icon="icon.ico"
 		Width="800" Height="450" FontFamily="Microsoft YaHei,苹方-简,WenQuanYi Zen Hei">
 	<Grid>
 		<Grid.ColumnDefinitions>

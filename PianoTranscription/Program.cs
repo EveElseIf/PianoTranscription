@@ -4,7 +4,6 @@ using PianoTranscription.Core.Midi;
 using System.CommandLine;
 using System.Diagnostics;
 
-// Console.WriteLine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
 var langTag = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 var lang = langTag == "zh" ? Langs.Zh : Langs.En;
 
