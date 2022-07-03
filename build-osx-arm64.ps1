@@ -60,6 +60,8 @@ if ($args[0] -eq "dist" -or $args[1] -eq "dist") {
     Copy-Item -Path "$publish_path*" $bundle_root"Contents/MacOS"
     Copy-Item -Path "resources/Info.plist" $bundle_root"/Contents"
     Copy-Item -Path "resources/icon.icns" $bundle_root"/Contents/Resources"
+    Copy-Item -Path "resources/en.lproj" $bundle_root"/Contents/Resources"
+    Copy-Item -Path "resources/zh.lproj" $bundle_root"/Contents/Resources"
     tar -zcvf "pianotranscription-osx-arm64-gui.tar.gz" -C build $bundle_name
 
     Write-Output "Build dist Finished"

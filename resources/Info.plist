@@ -7,7 +7,9 @@
     <key>CFBundleIdentifier</key>
     <string>moe.eveelseif</string>
     <key>CFBundleName</key>
-    <string>Piano Transcription Helper</string>
+    <string>PianoTranscription</string>
+    <key>CFBundleDisplayName</key>
+    <string>PianoTranscription</string>
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>LSMinimumSystemVersion</key>
