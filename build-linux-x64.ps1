@@ -1,4 +1,4 @@
-$onnx_exists = ([System.IO.File]::Exists("./PianoTranscription.Core/transcription.onnx"))
+$onnx_exists = Test-Path "./PianoTranscription.Core/transcription.onnx"
 Write-Output "onnx exists=$onnx_exists"
 if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
@@ -21,7 +21,7 @@ if($args[0] -eq "dist") {
     Remove-Item $publish_path"PianoTranscription.pdb"
     $out_dir_name = "pianotranscription-linux-x64"
     $dist_path = "build/$out_dir_name"
-    if ([System.IO.Directory]::Exists($dist_path)) {
+    if (Test-Path $dist_path) {
         Remove-Item $dist_path -Force -Recurse
     }
     New-Item -ItemType Directory $dist_path
@@ -40,7 +40,7 @@ if($args[0] -eq "dist") {
     Remove-Item $publish_path"libwinpthread-1.dll"
     $out_dir_name = "pianotranscription-linux-x64-gui"
     $dist_path = "build/$out_dir_name"
-    if ([System.IO.Directory]::Exists($dist_path)) {
+    if (Test-Path $dist_path) {
         Remove-Item $dist_path -Force -Recurse
     }
     New-Item -ItemType Directory $dist_path

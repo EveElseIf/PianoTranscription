@@ -6,7 +6,7 @@ if(-not $IsMacOS -or $PSVersionTable.OS.ToLower().Contains("x86")) {
         Exit 0
     }
 }
-$onnx_exists = ([System.IO.File]::Exists("./PianoTranscription.Core/transcription.onnx"))
+$onnx_exists = Test-Path "./PianoTranscription.Core/transcription.onnx"
 Write-Output "onnx exists=$onnx_exists"
 if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
@@ -30,7 +30,7 @@ if ($args[0] -eq "dist" -or $args[1] -eq "dist") {
     Remove-Item $publish_path"PianoTranscription.pdb"
     $out_dir_name = "pianotranscription-osx-arm64"
     $dist_path = "build/$out_dir_name"
-    if ([System.IO.Directory]::Exists($dist_path)) {
+    if (Test-Path $dist_path) {
         Remove-Item $dist_path -Force -Recurse
     }
     New-Item -ItemType Directory $dist_path
@@ -50,7 +50,7 @@ if ($args[0] -eq "dist" -or $args[1] -eq "dist") {
     Remove-Item $publish_path"libwinpthread-1.dll"
     $bundle_name = "PianoTranscription.app"
     $bundle_root = "build/$bundle_name/"
-    if ([System.IO.Directory]::Exists($bundle_root)) {
+    if (Test-Path $bundle_root) {
         Remove-Item $bundle_root -Force -Recurse
     }
     New-Item -ItemType Directory $bundle_root
@@ -60,8 +60,8 @@ if ($args[0] -eq "dist" -or $args[1] -eq "dist") {
     Copy-Item -Path "$publish_path*" $bundle_root"Contents/MacOS"
     Copy-Item -Path "resources/Info.plist" $bundle_root"/Contents"
     Copy-Item -Path "resources/icon.icns" $bundle_root"/Contents/Resources"
-    Copy-Item -Path "resources/en.lproj" $bundle_root"/Contents/Resources"
-    Copy-Item -Path "resources/zh.lproj" $bundle_root"/Contents/Resources"
+    Copy-Item -Path "resources/en.lproj" $bundle_root"/Contents/Resources" -Recurse
+    Copy-Item -Path "resources/zh.lproj" $bundle_root"/Contents/Resources" -Recurse
     tar -zcvf "pianotranscription-osx-arm64-gui.tar.gz" -C build $bundle_name
 
     Write-Output "Build dist Finished"
