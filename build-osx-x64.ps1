@@ -4,7 +4,8 @@ if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
 }
 chmod +x PianoTranscription.Core/ffmpeg-osx-x64/ffmpeg
-dotnet build
+dotnet build ./PianoTranscription
+dotnet build ./PianoTranscription.App
 Copy-Item "PianoTranscription.Core/ffmpeg-osx-x64/ffmpeg" "PianoTranscription/bin/Debug/net6.0"
 Copy-Item "PianoTranscription.Core/ffmpeg-osx-x64/ffmpeg" "PianoTranscription.App/bin/Debug/net6.0"
 if($args[0] -eq "dist") {
@@ -37,6 +38,8 @@ if($args[0] -eq "dist") {
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dylib"
     Remove-Item $publish_path"PianoTranscription.Core.pdb"
     Remove-Item $publish_path"PianoTranscription.App.pdb"
+    Remove-Item $publish_path"ffmpeg.exe"
+    Remove-Item $publish_path"libwinpthread-1.dll"
     $bundle_name = "PianoTranscription.app"
     $bundle_root = "build/$bundle_name/"
     if ([System.IO.Directory]::Exists($bundle_root)) {
@@ -45,9 +48,10 @@ if($args[0] -eq "dist") {
     New-Item -ItemType Directory $bundle_root
     New-Item -ItemType Directory $bundle_root"Contents"
     New-Item -ItemType Directory $bundle_root"Contents/MacOS"
+    New-Item -ItemType Directory $bundle_root"Contents/Resources"
     Copy-Item -Path "$publish_path*" $bundle_root"Contents/MacOS"
     Copy-Item -Path "resources/Info.plist" $bundle_root"/Contents"
-    New-Item -ItemType Directory $bundle_root"Contents/Resources"
+    Copy-Item -Path "resources/icon.icns" $bundle_root"/Contents/Resources"
     tar -zcvf "pianotranscription-osx-x64-gui.tar.gz" -C build $bundle_name
 
     Write-Output "Build dist Finished"

@@ -5,13 +5,14 @@ if (-not($onnx_exists)) {
 }
 dotnet build
 Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" "PianoTranscription/bin/Debug/net6.0"
-Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" "PianoTranscription.App/bin/Debug/net6.0"
+Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/libwinpthread-1.dll" "PianoTranscription/bin/Debug/net6.0"
 if ($args[0] -eq "dist") {
     Write-Output "Start build dist"
 
     dotnet publish PianoTranscription -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
     $publish_path = "PianoTranscription/bin/Release/net6.0/win-x64/publish/"
     Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" $publish_path
+    Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/libwinpthread-1.dll" $publish_path
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native32.dll"
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dll"
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dylib"
@@ -30,7 +31,6 @@ if ($args[0] -eq "dist") {
 
     dotnet publish PianoTranscription.App -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true
     $publish_path = "PianoTranscription.App/bin/Release/net6.0/win-x64/publish/"
-    Copy-Item "PianoTranscription.Core/ffmpeg-win-x64/ffmpeg.exe" $publish_path
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native32.dll"
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dll"
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dylib"

@@ -4,7 +4,8 @@ if (-not($onnx_exists)) {
     Invoke-WebRequest -Uri "https://github.com/EveElseIf/PianoTranscription/releases/download/ONNX/transcription.onnx" -OutFile "./PianoTranscription.Core/transcription.onnx"
 }
 chmod +x PianoTranscription.Core/ffmpeg-linux-x64/ffmpeg
-dotnet build
+dotnet build ./PianoTranscription
+dotnet build ./PianoTranscription.App
 Copy-Item "PianoTranscription.Core/ffmpeg-linux-x64/ffmpeg" "PianoTranscription/bin/Debug/net6.0"
 Copy-Item "PianoTranscription.Core/ffmpeg-linux-x64/ffmpeg" "PianoTranscription.App/bin/Debug/net6.0"
 if($args[0] -eq "dist") {
@@ -35,6 +36,8 @@ if($args[0] -eq "dist") {
     Remove-Item $publish_path"Melanchall_DryWetMidi_Native64.dylib"
     Remove-Item $publish_path"PianoTranscription.Core.pdb"
     Remove-Item $publish_path"PianoTranscription.App.pdb"
+    Remove-Item $publish_path"ffmpeg.exe"
+    Remove-Item $publish_path"libwinpthread-1.dll"
     $out_dir_name = "pianotranscription-linux-x64-gui"
     $dist_path = "build/$out_dir_name"
     if ([System.IO.Directory]::Exists($dist_path)) {
