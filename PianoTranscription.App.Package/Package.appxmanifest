@@ -9,7 +9,7 @@
   <Identity
     Name="27274EveElseIf.3224962B1EB29"
     Publisher="CN=E8A87D1A-6712-47FF-877A-086B526DECC4"
-    Version="1.0.1.0" />
+    Version="1.1.0.0" />
 
   <Properties>
     <DisplayName>AI 扒谱小助手</DisplayName>
