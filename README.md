@@ -3,7 +3,7 @@ A CLI application allows you to transcript audio of piano music to midi data.
 
 Now there's also a simple GUI application to make it more user friendly.
 # Installation
-Download archieve from release page depending on your os, and simply extract all files.
+Download archieve from release page depending on your OS, and simply extract all files.
 # Usage
 Get help.
 ```
@@ -42,4 +42,4 @@ dotnet pwsh ./build-xxx-xxx.ps1 dist
 ```
 
 ## Warning
-Please just build osx-arm64 version on an osx-arm64 host. If you build it on other hosts, you may face a crash problem.
+Please just build osx versions on osx hosts. If you build them on hosts with other OS, you may face a crash problem (due to codesign).

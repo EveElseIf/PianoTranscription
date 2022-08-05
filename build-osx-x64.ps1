@@ -54,6 +54,7 @@ if($args[0] -eq "dist") {
     Copy-Item -Path "resources/icon.icns" $bundle_root"/Contents/Resources"
     Copy-Item -Path "resources/en.lproj" $bundle_root"/Contents/Resources" -Recurse
     Copy-Item -Path "resources/zh.lproj" $bundle_root"/Contents/Resources" -Recurse
+    codesign --force --deep --timestamp=none --sign - $bundle_root
     tar -zcvf "pianotranscription-osx-x64-gui.tar.gz" -C build $bundle_name
 
     Write-Output "Build dist Finished"
